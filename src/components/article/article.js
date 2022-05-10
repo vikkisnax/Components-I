@@ -2,6 +2,7 @@ import './article.less'
 // This is the data we will be using to create our articles. Look at it, then proceed to line 93.
 // OPTIONAL: if you're feeling adventurous, try to make this data an export from a different module, and import it here.
 // You can read about ES6 modules here: https://exploringjs.com/es6/ch_modules.html#sec_basics-of-es6-modules
+
 const data = [
   {
     title: 'BloomTech Students: "We\'re the best!"',
@@ -87,6 +88,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Hello, this is my object',
+    date: 'March 9, 2022',
+    firstParagraph: 'It is 7:29pm and I would like to eat dinner.',
+    secondParagraph: 'I am going to finish crocheting my top tonight.',
+    thirdParagraph: 'We worked out today so we will feel it tomorrow morning.'
   }
 ];
 
@@ -103,15 +111,72 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
 
+function articleMaker(articleObj){
+  //define new elements
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDateP = document.createElement('p');
+  const articleP1 = document.createElement('p');
+  const articleP2 = document.createElement('p');
+  const articleP3 = document.createElement('p');
+  const articleSpan = document.createElement('span');
+
+  //attach to parent
+  article.appendChild(articleTitle);
+  article.appendChild(articleDateP);
+  article.appendChild(articleP1);
+  article.appendChild(articleP2);
+  article.appendChild(articleP3);
+  article.appendChild(articleSpan);
+
+  //add class names if any
+  article.classList.add('article');
+  articleDateP.classList.add('date');
+  articleSpan.classList.add('expandButton');
+
+  //add any text/content
+  articleTitle.textContent = articleObj.title;
+  articleDateP.textContent = articleObj.date;
+  articleP1.textContent = articleObj.firstParagraph;
+  articleP2.textContent = articleObj.secondParagraph;
+  articleP3.textContent = articleObj.thirdParagraph;
+  articleSpan.textContent = '+';
+
+  //from step 2: addEventListener
+  articleSpan.addEventListener('click',()=>{
+    article.classList.toggle('article-open')
+  })
+
+  //step 3 return something from your function!
+  return article
+}
+
+/* ^
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
-
   Step 3: Don't forget to return something from your function!
+*/
 
+
+// grab main parent that will hold function u made
+const articles = document.querySelector('.articles');
+
+
+//attach main parent to the 'data' array so it can have the info. it'll follow the format of the function you made 
+data.forEach(dataObj => {
+  articles.appendChild(articleMaker(dataObj));
+})
+/* ^^
   Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
   to create a div.article element and append it to the DOM inside div.articles (see index.html).
+*/
 
+
+/* ^^ I did it in the array - it popped up
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+
